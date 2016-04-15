@@ -59,6 +59,9 @@ number of particles in one model with SIZE array.
 | SIZE["MODEL"]    | number of models in pdb file     |
 | SIZE["PARTICLE"] | number of particles in one model |
 
+__NOTE__: If you read a pdbfile that have no MODEL line, PDBReader stores the
+model in DATA[0,N,"foo"] and SIZE["MODEL"] become zero. Please be careful.
+
 ## Sample Scripts
 
 #### ContactMap
