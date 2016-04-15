@@ -29,6 +29,36 @@ with index 0,1,2.
 | vec\_angle(lhs, rhs)      | returns angle between lhs and rhs |
 | vec\_print(vec)           | prints the vector                 |
 
+##### PDB Reader
+AWKesome store the pdb data as pseudo-multidimentional array.
+To read some pdb file in your awk script, call PDBread() this way.
+
+    PDBread("filename", DATA, SIZE)
+
+here, DATA and SIZE is name of data array that you want to store the information.
+
+You can access the information in pdb file like this way.
+
+| key                 | value        | example |
+|:--------------------|:-------------|:--------|
+| DATA[M,N,"RESIDUE"] | residue name | "THR"   |
+| DATA[M,N,"ATOM"]    | atom name    | "CA"    |
+| DATA[M,N,"CHAIN"]   | chain name   | "A"     |
+| DATA[M,N,"RESID"]   | residue id   | "THR"   |
+| DATA[M,N,"X"]       | x coordinate | 1.0000  |
+| DATA[M,N,"Y"]       | y coordinate | 1.0000  |
+| DATA[M,N,"Z"]       | z coordinate | 1.0000  |
+
+here, M means model index and N means particle index.
+
+Of course, you can get the number of models in pdb file and
+number of particles in one model with SIZE array.
+
+| key              | value                            |
+|:-----------------|:---------------------------------|
+| SIZE["MODEL"]    | number of models in pdb file     |
+| SIZE["PARTICLE"] | number of particles in one model |
+
 ## Testing
 
     cd test/
