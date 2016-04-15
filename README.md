@@ -59,10 +59,20 @@ number of particles in one model with SIZE array.
 | SIZE["MODEL"]    | number of models in pdb file     |
 | SIZE["PARTICLE"] | number of particles in one model |
 
+## Sample Scripts
+
+#### ContactMap
+ContactMap.awk outputs the contact map of a certain model in pdb file.
+    $ awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk -f src/ContactMap.awk -v threshold=6.5 -v pdbfile="hoge.pdb" -v model=1
+Here, threshold is the definition of contact. If the distance of certain pair of
+particle is lesser than this value, the particles are considered as making pair.
+__pdbfile__ is the name of PDB file you want to analyze.
+__model__ is an ID of the model you want to analize.
+
 ## Testing
 
-    cd test/
-    ./run_test
+    $ cd test/
+    $ ./run_test
 
 ## Licensing Terms
 This project is licensed under the terms of the MIT License.
