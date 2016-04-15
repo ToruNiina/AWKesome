@@ -4,7 +4,8 @@
 #   and the array must be accessible with index 0,1,2.
 # How to use it
 #   run following way.
-#   $ awk -f VectorOperation.awk -f your_awesome_awk_script.awk
+#   $ awk -f Trigonometric.awk -f VectorOperation.awk \
+#         -f your_awesome_awk_script.awk
 
 function vec_len_sq(vec) {
     return vec[0]^2 + vec[1]^2 + vec[2]^2
