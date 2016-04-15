@@ -11,7 +11,9 @@
 #       DATA[M, N, "Y"]       = y coordinate
 #       DATA[M, N, "Z"]       = z coordinate
 #   SIZE also become a multi array. This contains the number of models and
-#   the number of particles in one model.
+#   the number of particles in one model. 
+#       SIZE["MODEL"]    = number of models in the file
+#       SIZE["PARTICLE"] = number of particles in one model
 # How to use it
 #   run following way.
 #   $ awk -f PDBReader.awk -f your_awesome_awk_script.awk
@@ -34,13 +36,13 @@ function PDBread(pdb_filename, data_array_name, size_value) {
     CAT_FILE = "cat " pdb_filename;
     while ((CAT_FILE | getline) > 0) {
         if($1 == "MODEL") {
-            ++model_id
+            model_id++
             particle_id = 1
             continue
         }
         if($1=="ATOM") {
             read_pdb_line(model_id, particle_id, data_array_name)
-            ++particle_id
+            particle_id++
         }
     }
     close(CAT_FILE);
