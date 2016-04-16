@@ -9,7 +9,7 @@
 #         -f your_awesome_awk_script.awk
 
 function vec_len_sq(vec) {
-    return vec[0]^2 + vec[1]^2 + vec[2]^2
+    return vec[0]*vec[0] + vec[1]*vec[1] + vec[2]*vec[2]
 }
 
 function vec_len(vec) {
