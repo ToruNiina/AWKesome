@@ -26,7 +26,7 @@ BEGIN{
     }
  
     print "# model-index, RMSD"
-    for(i_model=1; i_model<MOVIESIZE["MODEL"]; i_model++) {
+    for(i_model=1; i_model<=MOVIESIZE["MODEL"]; i_model++) {
         for(i_part=0; i_part<MOVIESIZE["PARTICLE"]; i_part++) {
             SNAPSHOT[i_part, "X"] = MOVIEDATA[i_model,i_part,"X"]
             SNAPSHOT[i_part, "Y"] = MOVIEDATA[i_model,i_part,"Y"]
