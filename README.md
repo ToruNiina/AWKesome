@@ -74,6 +74,10 @@ See lib/MatrixOperation.awk.
 Calculate the eigenvectors and eigenvalues of symmetric matrix.
 See lib/JacobiMethod.awk.
 
+### BestFit
+Calculate the best fit rotation and return the rotated structure.
+See lib/BestFit.awk.
+
 ## Sample Scripts
 
 ### ContactMap
@@ -82,10 +86,25 @@ ContactMap.awk outputs the contact map of a certain model in pdb file.
     $awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk \
          -f src/ContactMap.awk -v threshold=6.5 -v pdbfile="hoge.pdb" -v model=1
 
-Here, _threshold_ is the definition of contact. If the distance of certain pair of
-particle is lesser than this value, the particles are considered as making pair.
+Here, _threshold_ is the definition of contact. If the distance of certain pair
+of particle is lesser than this value, the particles are considered as making
+pair.
 _pdbfile_ is the name of PDB file you want to analyze.
 _model_ is an ID of the model you want to analize.
+
+### RMSDCalculator
+RMSDCalculator.awk calculates RMSD.
+
+    $awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk \
+         -f lib/utils.awk -f MatrixOperation.awk -f lib/JacobiMethod.awk \
+         -f lib/BestFit.awk src/RMSDCalculator.awk -v ref=reference.pdb \
+         -v movie=some.movie
+
+As reference structure, PDB file that contains CG-structure of the model is
+required.
+The reference PDB must not contain MODEL line.
+
+__NOTE__: This calculates only whole structure. Not each chain.
 
 ## Testing
 
