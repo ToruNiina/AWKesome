@@ -32,13 +32,13 @@ function read_pdb_line(model, imp, data_array) {
 
 function PDBread(pdb_filename, data_array_name, size_value) {
     model_id = 0
-    particle_id = 1
+    particle_id = 0
 
     CAT_FILE = "cat " pdb_filename;
     while ((CAT_FILE | getline) > 0) {
         if($1 == "MODEL") {
             model_id++
-            particle_id = 1
+            particle_id = 0
             continue
         }
         if($1=="ATOM") {
