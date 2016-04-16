@@ -17,6 +17,8 @@ BEGIN{
         REFERENCE[i_ref, "Z"] = REFDATA[0,i_ref,"Z"]
     }
 
+    zeroing(REFERENCE, ZERO_REFERENCE, REFSIZE["PARTICLE"])
+
     PDBread(movie, MOVIEDATA, MOVIESIZE)
     if(MOVIESIZE["PARTICLE"] != REFSIZE["PARTICLE"]) {
         print ref " and " movie " contains different structure"
@@ -31,8 +33,8 @@ BEGIN{
             SNAPSHOT[i_part, "Z"] = MOVIEDATA[i_model,i_part,"Z"]
         }
 
-        BestFit(SNAPSHOT, REFERENCE, FITTEDSTR, REFSIZE["PARTICLE"])
-        print i_model " " calc_RMSD(FITTEDSTR, REFERENCE, REFSIZE["PARTICLE"])
+        BestFit(SNAPSHOT, ZERO_REFERENCE, FITTEDSTR, REFSIZE["PARTICLE"])
+        print i_model " " calc_RMSD(FITTEDSTR, ZERO_REFERENCE, REFSIZE["PARTICLE"])
     }
 }
 
