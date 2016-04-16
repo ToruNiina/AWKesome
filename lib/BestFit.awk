@@ -115,15 +115,15 @@ function gen_Bmat(AVec, BVec, Bmat, N) {
 }
 
 function gen_Rmat(Quat, Ret) {
-    Ret[0,0] = 2.0 * Quat[0] * Quat[0] + 2.0 * Quat[1] * Quat[1] - 1.0
-    Ret[0,1] = 2.0 * Quat[1] * Quat[2] - 2.0 * Quat[0] * Quat[3]
-    Ret[0,2] = 2.0 * Quat[1] * Quat[3] + 2.0 * Quat[0] * Quat[2]
+    Ret[0,0] = (2.0 * Quat[0] * Quat[0]) + (2.0 * Quat[1] * Quat[1]) - 1.0
+    Ret[0,1] = (2.0 * Quat[1] * Quat[2]) - (2.0 * Quat[0] * Quat[3])
+    Ret[0,2] = (2.0 * Quat[1] * Quat[3]) + (2.0 * Quat[0] * Quat[2])
 
-    Ret[1,0] = 2.0 * Quat[1] * Quat[2] + 2.0 * Quat[0] * Quat[3]
-    Ret[1,1] = 2.0 * Quat[0] * Quat[0] + 2.0 * Quat[2] * Quat[2] - 1.0
-    Ret[1,2] = 2.0 * Quat[2] * Quat[3] - 2.0 * Quat[0] * Quat[1]
+    Ret[1,0] = (2.0 * Quat[1] * Quat[2]) + (2.0 * Quat[0] * Quat[3])
+    Ret[1,1] = (2.0 * Quat[0] * Quat[0]) + (2.0 * Quat[2] * Quat[2]) - 1.0
+    Ret[1,2] = (2.0 * Quat[2] * Quat[3]) - (2.0 * Quat[0] * Quat[1])
 
-    Ret[2,0] = 2.0 * Quat[1] * Quat[3] - 2.0 * Quat[0] * Quat[2]
-    Ret[2,1] = 2.0 * Quat[2] * Quat[3] + 2.0 * Quat[0] * Quat[1]
-    Ret[2,2] = 2.0 * Quat[0] * Quat[0] + 2.0 * Quat[3] * Quat[3] - 1.0
+    Ret[2,0] = (2.0 * Quat[1] * Quat[3]) - (2.0 * Quat[0] * Quat[2])
+    Ret[2,1] = (2.0 * Quat[2] * Quat[3]) + (2.0 * Quat[0] * Quat[1])
+    Ret[2,2] = (2.0 * Quat[0] * Quat[0]) + (2.0 * Quat[3] * Quat[3]) - 1.0
 }
