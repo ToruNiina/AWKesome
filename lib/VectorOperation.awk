@@ -15,6 +15,13 @@ function vec_len(vec) {
     return sqrt(vec_len_sq(vec))
 }
 
+function vec_copy(lhs, rhs) {
+    rhs[0] = lhs[0]
+    rhs[1] = lhs[1]
+    rhs[2] = lhs[2]
+    return
+}
+
 function vec_add(lhs, rhs, ret) {
     ret[0] = lhs[0] + rhs[0]
     ret[1] = lhs[1] + rhs[1]
