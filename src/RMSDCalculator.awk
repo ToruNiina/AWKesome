@@ -31,21 +31,21 @@ BEGIN{
             SNAPSHOT[i_part, "Z"] = MOVIEDATA[i_model,i_part,"Z"]
         }
 
-        BestFit(SNAPSHOT, REFERENCE, STRUCTURE, REFSIZE["PARTICLE"])
-        print i_model " " calc_RMSD(STRUCTURE, REFERENCE, REFSIZE["PARTICLE"])
+        BestFit(SNAPSHOT, REFERENCE, FITTEDSTR, REFSIZE["PARTICLE"])
+        print i_model " " calc_RMSD(FITTEDSTR, REFERENCE, REFSIZE["PARTICLE"])
     }
 }
 
-function calc_RMSD(structure, reference, num_particle) {
+function calc_RMSD(fitted_structure, rmsd_reference, num_particle) {
     rmsd=0.0
     for(i=0; i<num_particle; i++) {
-        lhs[0] = structure[i, "X"]
-        lhs[1] = structure[i, "Y"]
-        lhs[2] = structure[i, "Z"]
+        lhs[0] = fitted_structure[i, "X"]
+        lhs[1] = fitted_structure[i, "Y"]
+        lhs[2] = fitted_structure[i, "Z"]
 
-        rhs[0] = reference[i, "X"]
-        rhs[1] = reference[i, "Y"]
-        rhs[2] = reference[i, "Z"]
+        rhs[0] = rmsd_reference[i, "X"]
+        rhs[1] = rmsd_reference[i, "Y"]
+        rhs[2] = rmsd_reference[i, "Z"]
 
         vec_sub(lhs, rhs, dpos)
         rmsd = rmsd + vec_len_sq(dpos)
