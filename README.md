@@ -47,7 +47,7 @@ You can access the information in pdb file like this way.
 | DATA[M,N,"RESIDUE"] | residue name | "THR"   |
 | DATA[M,N,"ATOM"]    | atom name    | "CA"    |
 | DATA[M,N,"CHAIN"]   | chain name   | "A"     |
-| DATA[M,N,"RESID"]   | residue id   | "THR"   |
+| DATA[M,N,"RESID"]   | residue id   | 12      |
 | DATA[M,N,"X"]       | x coordinate | 1.0000  |
 | DATA[M,N,"Y"]       | y coordinate | 1.0000  |
 | DATA[M,N,"Z"]       | z coordinate | 1.0000  |
