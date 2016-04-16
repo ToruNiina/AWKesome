@@ -104,6 +104,19 @@ As reference structure, PDB file that contains CG-structure of the model is
 required.
 The reference PDB must not contain MODEL line.
 
+In data/ directory, sample data that can be used for RMSDCalculation exist.
+To try RMSDCalculator, do following way on top directory of this project.
+
+    $awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk \
+         -f lib/utils.awk -f MatrixOperation.awk -f lib/JacobiMethod.awk \
+         -f lib/BestFit.awk src/RMSDCalculator.awk -v ref="./data/sh3_native.pdb" \
+         -v movie="./data/sh3_native.movie" > sh3_rmsd.dat
+
+And compare CafeMol's ts file.
+Because ts file rounds the values, you find the difference between them at
+a quick glance, but these are almost same if my scripts runs correctly on
+your environment.
+
 __NOTE__: This calculates only whole structure. Not each chain.
 
 ## Testing
