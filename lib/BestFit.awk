@@ -57,6 +57,7 @@ function zeroing(Struct, Zeroed, N) {
         Zeroed[i,"Y"] = Struct[i,"Y"] - mean[1]
         Zeroed[i,"Z"] = Struct[i,"Z"] - mean[2]
     }
+
     return
 }
 
@@ -81,7 +82,7 @@ function gen_Bmat(AVec, BVec, Bmat, N) {
         bi[1] = BVec[i,"Y"]
         bi[2] = BVec[i,"Z"]
 
-        Bmat[0,0] = Bmat[0,0] + vec_len_sq(bi)
+        Bmat[0,0] = Bmat[0,0] + (bi[0]*bi[0]) + (bi[1]*bi[1]) + (bi[2]*bi[2])
         Bmat[0,1] = Bmat[0,1] + (ai[2]*bi[1]) - (ai[1]*bi[2])
         Bmat[0,2] = Bmat[0,2] + (ai[0]*bi[2]) - (ai[2]*bi[0])
         Bmat[0,3] = Bmat[0,3] + (ai[1]*bi[0]) - (ai[0]*bi[1])
