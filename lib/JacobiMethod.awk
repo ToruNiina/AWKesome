@@ -8,17 +8,8 @@
 #   $ awk -f utils.awk -f MatrixOperation.awk -f JacobiMethod.awk \
 #         -f your_awesome_awk_script.awk
 
-# get eigenvector corresponding to minimal eigen value of NxN matrix
 function minEigenVec(mat, N, EVec) {
     SolveJacobi(mat, N, EIGVAL, EIGVEC)
-
-#     printf "Eigenvalue "
-#     print EIGVAL[0] " " EIGVAL[1] " " EIGVAL[2] " " EIGVAL[3]
-#     print "Eigenvector "
-#     print EIGVEC[0,0] " " EIGVEC[0,1] " " EIGVEC[0,2] " " EIGVEC[0,3]
-#     print EIGVEC[1,0] " " EIGVEC[1,1] " " EIGVEC[1,2] " " EIGVEC[1,3]
-#     print EIGVEC[2,0] " " EIGVEC[2,1] " " EIGVEC[2,2] " " EIGVEC[2,3]
-#     print EIGVEC[3,0] " " EIGVEC[3,1] " " EIGVEC[3,2] " " EIGVEC[3,3]
 
     minindex=0
     minval=EIGVAL[0]
@@ -32,8 +23,6 @@ function minEigenVec(mat, N, EVec) {
     for(j=0;j<N;j++) {
         EVec[j] = EIGVEC[minindex,j]
     }
-#     printf "return "
-#     print EVec[0] " " EVec[1] " " EVec[2] " " EVec[3] 
 }
 
 function SolveJacobi(mat, N, EVal, EVec) {
@@ -47,13 +36,7 @@ function SolveJacobi(mat, N, EVal, EVec) {
             }
         }
     }
-
-#     print "initialize"
-#     matNM_print(Ps, N, N)
-
     matNM_copy(mat, target, N, N)
-#     print "copy target"
-#     matNM_print(target, N, N)
 
     for(Jloop=0; Jloop<100;Jloop++) {
         get_max_element(target, N, INDEX)
@@ -85,32 +68,19 @@ function SolveJacobi(mat, N, EVal, EVec) {
         PPri[INDEX["ROW"], INDEX["COL"]] = sinv
         PPri[INDEX["COL"], INDEX["ROW"]] = -1.0 * sinv
         PPri[INDEX["COL"], INDEX["COL"]] = cosv
-#         print "PPri"
-#         matNM_print(PPri, N, N)
 
         mat_transpose(PPri, PProx, N, N)
-#         print "PProx"
-#         matNM_print(PProx, N, N)
 
         matLMN_mul(PProx, target, tmp1, N, N, N)
         matLMN_mul(tmp1, PPri, target, N, N, N)
 
-#         print "be zero: " target[INDEX["ROW"], INDEX["COL"]]
-#         print "be zero: " target[INDEX["COL"], INDEX["ROW"]]
         target[INDEX["ROW"], INDEX["COL"]] = 0.0
         target[INDEX["COL"], INDEX["ROW"]] = 0.0
 
-#         print "target"
-#         matNM_print(target, N, N)
 
         matLMN_mul(Ps, PPri, temp, N, N, N)
         matNM_copy(temp, Ps, N, N)
     }
-
-#     print "end. the eigenval"
-#     matNM_print(target, N, N)
-#     print "the eigenvec"
-#     matNM_print(Ps, N, N)
 
     for(evi=0;evi<N;evi++) {
         EVal[evi] = target[evi,evi]
@@ -127,14 +97,10 @@ function get_max_element(mat, N, EleIndex) {
 
     for(i=0; i<N-1; i++) {
         for(j=i+1; j<N; j++) {
-#             print "i,j = " i "," j
-#             print "element " mat[i,j]
-#             print "abs element " abs(mat[i,j])
             if(value < abs(mat[i,j])) {
                 EleIndex["ROW"] = i
                 EleIndex["COL"] = j
                 value = abs(mat[j,i])
-#                 print "new max value: " value
             }
         }
     }
