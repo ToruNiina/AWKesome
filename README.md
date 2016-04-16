@@ -5,15 +5,18 @@ AWKesome is AWESOME awk function library to analyze the output of cafemol.
 
 ## Functions
 
-#### Trigonometric functions 
+### Trigonometric functions
 - tan(theta)
 - acos(theta)
 - asin(theta)
 - atan(theta)
 using awk's function atan2(x, y)
 
-#### Vector Operation
-AWKesome represents Vector3d as array of numbers. The values must be accessible 
+### Utility functions
+- abs(x)
+
+### Vector Operation
+AWKesome represents Vector3d as array of numbers. The values must be accessible
 with index 0,1,2.
 
 | name of function          | description                       |
@@ -29,13 +32,13 @@ with index 0,1,2.
 | vec\_angle(lhs, rhs)      | returns angle between lhs and rhs |
 | vec\_print(vec)           | prints the vector                 |
 
-##### PDB Reader
+### PDB Reader
 AWKesome store the pdb data as pseudo-multidimentional array.
 To read some pdb file in your awk script, call PDBread() this way.
 
     PDBread("filename", DATA, SIZE)
 
-here, DATA and SIZE is name of data array that you want to store the information.
+here, _DATA_ and _SIZE_ is name of data array that you want to store the information.
 
 You can access the information in pdb file like this way.
 
@@ -49,7 +52,7 @@ You can access the information in pdb file like this way.
 | DATA[M,N,"Y"]       | y coordinate | 1.0000  |
 | DATA[M,N,"Z"]       | z coordinate | 1.0000  |
 
-here, M means model index and N means particle index.
+here, _M_ means model index and _N_ means particle index.
 
 Of course, you can get the number of models in pdb file and
 number of particles in one model with SIZE array.
@@ -62,15 +65,27 @@ number of particles in one model with SIZE array.
 __NOTE__: If you read a pdbfile that have no MODEL line, PDBReader stores the
 model in DATA[0,N,"foo"] and SIZE["MODEL"] become zero. Please be careful.
 
+### Matrix Operation
+AWKesome represents Matrix as pseudo-multidimentional array of numbers.
+About the same kind of functions as vector operation are supported.
+See lib/MatrixOperation.awk.
+
+### Jacobi Method
+Calculate the eigenvectors and eigenvalues of symmetric matrix.
+See lib/JacobiMethod.awk.
+
 ## Sample Scripts
 
-#### ContactMap
+### ContactMap
 ContactMap.awk outputs the contact map of a certain model in pdb file.
-    $ awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk -f src/ContactMap.awk -v threshold=6.5 -v pdbfile="hoge.pdb" -v model=1
-Here, threshold is the definition of contact. If the distance of certain pair of
+
+    $awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk \
+         -f src/ContactMap.awk -v threshold=6.5 -v pdbfile="hoge.pdb" -v model=1
+
+Here, _threshold_ is the definition of contact. If the distance of certain pair of
 particle is lesser than this value, the particles are considered as making pair.
-__pdbfile__ is the name of PDB file you want to analyze.
-__model__ is an ID of the model you want to analize.
+_pdbfile_ is the name of PDB file you want to analyze.
+_model_ is an ID of the model you want to analize.
 
 ## Testing
 
@@ -81,6 +96,6 @@ __model__ is an ID of the model you want to analize.
 This project is licensed under the terms of the MIT License.
 See LICENSE for the project license.
 
-- Copyright (c) 2016- Toru Niina
+- Copyright (c) 2016 Toru Niina
 
 All rights reserved.
