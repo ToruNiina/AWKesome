@@ -153,14 +153,14 @@ function mat3_matmul(lhs, rhs, ret) {
 }
 
 function mat3_vecmul(mat, vec, ret) {
-    ret[0] = mat[0,0] * vec[0] + lhs[0,1] * vec[1] + mat[0,2] * vec[2]
-    ret[1] = mat[1,0] * vec[0] + lhs[1,1] * vec[1] + mat[1,2] * vec[2]
-    ret[2] = mat[2,0] * vec[0] + lhs[2,1] * vec[1] + mat[2,2] * vec[2]
+    ret[0] = (mat[0,0] * vec[0]) + (mat[0,1] * vec[1]) + (mat[0,2] * vec[2])
+    ret[1] = (mat[1,0] * vec[0]) + (mat[1,1] * vec[1]) + (mat[1,2] * vec[2])
+    ret[2] = (mat[2,0] * vec[0]) + (mat[2,1] * vec[1]) + (mat[2,2] * vec[2])
 }
 
 function vec_mat3mul(vec, mat, ret) {
-    ret[0] = mat[0,0] * vec[0] + lhs[1,0] * vec[1] + mat[2,0] * vec[2]
-    ret[1] = mat[0,1] * vec[0] + lhs[1,1] * vec[1] + mat[2,1] * vec[2]
-    ret[2] = mat[0,2] * vec[0] + lhs[1,2] * vec[1] + mat[2,2] * vec[2]
+    ret[0] = (mat[0,0] * vec[0]) + (mat[1,0] * vec[1]) + (mat[2,0] * vec[2])
+    ret[1] = (mat[0,1] * vec[0]) + (mat[1,1] * vec[1]) + (mat[2,1] * vec[2])
+    ret[2] = (mat[0,2] * vec[0]) + (mat[1,2] * vec[1]) + (mat[2,2] * vec[2])
 }
 
