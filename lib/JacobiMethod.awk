@@ -1,4 +1,5 @@
-# AWKesome (c) Toru Niina, 2016
+#!/usr/bin/awk -f
+# AWKesome copyright (c) 2016 Toru Niina
 # desctiption
 #   Find eigen value and eigen vector. 
 #   For real symmetric matrix only.

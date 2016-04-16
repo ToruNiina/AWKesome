@@ -1,4 +1,5 @@
-# AWKesome (c) Toru Niina, 2016
+#!/usr/bin/awk -f
+# AWKesome Copyright (c) 2016 Toru Niina
 # desctiption
 #   PDBreader reads pdb file. If you call PDBread(filename, DATA, SIZE), 
 #   DATA become a multi array. You can access the value like this.

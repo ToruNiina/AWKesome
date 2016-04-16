@@ -1,4 +1,5 @@
-# AWKesome (c) Toru Niina, 2016
+#!/usr/bin/awk -f
+# AWKesome Copyright (c) 2016 Toru Niina
 # desctiption
 #   ContactMap make contact map from pdb file.
 # How to use it

@@ -1,4 +1,5 @@
-# AWKesome (c) Toru Niina, 2016
+#!/usr/bin/awk -f
+# AWKesome Copyright (c) 2016 Toru Niina
 # desctiption
 #   in AWKesome, Matrix is represented as an pseudo-multidimentional array.
 #   (mat[0,0] mat[0,1])

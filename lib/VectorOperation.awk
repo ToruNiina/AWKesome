@@ -1,4 +1,5 @@
-# AWKesome (c) Toru Niina, 2016
+#!/usr/bin/awk -f
+# AWKesome Copyright (c) 2016 Toru Niina
 # desctiption
 #   in AWKesome, vector is represented as an array that has 3 values.
 #   and the array must be accessible with index 0,1,2.
