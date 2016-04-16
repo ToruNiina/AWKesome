@@ -37,15 +37,15 @@ function vec_sub(lhs, rhs, ret) {
 }
 
 function vec_mul(vec, val, ret) {
-    ret[0] = lhs[0] * val
-    ret[1] = lhs[1] * val
-    ret[2] = lhs[2] * val
+    ret[0] = vec[0] * val
+    ret[1] = vec[1] * val
+    ret[2] = vec[2] * val
 }
 
 function vec_div(vec, val, ret) {
-    ret[0] = lhs[0] / val
-    ret[1] = lhs[1] / val
-    ret[2] = lhs[2] / val
+    ret[0] = vec[0] / val
+    ret[1] = vec[1] / val
+    ret[2] = vec[2] / val
 }
 
 function vec_dot(lhs, rhs) {
