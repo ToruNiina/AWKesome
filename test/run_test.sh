@@ -20,3 +20,11 @@ echo ""
     awk -f ../lib/PDBReader.awk -f test_PDBRead.awk
     echo "~~~~~~~~~~~ end. ~~~~~~~~~~~"
 }
+
+echo ""
+
+: "run test_Jacobi" && {
+    echo "=========== run test_Jacobi ==========="
+    awk -f ../lib/utils.awk -f ../lib/MatrixOperation.awk -f ../lib/JacobiMethod.awk -f test_Jacobi.awk
+    echo "~~~~~~~~~~~ end. ~~~~~~~~~~~"
+}
