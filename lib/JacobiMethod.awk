@@ -47,7 +47,7 @@ function SolveJacobi(mat, N, EVal, EVec) {
 
     for(Jloop=0; Jloop<100;Jloop++) {
         get_max_element(target, N, INDEX)
-        if(abs(target[INDEX["ROW"], INDEX["COL"]]) < 0.000001) {
+        if(abs(target[INDEX["ROW"], INDEX["COL"]]) < 0.00000000001) {
             break
         }
         alpha=(target[INDEX["ROW"], INDEX["ROW"]] - target[INDEX["COL"], INDEX["COL"]]) / 2
