@@ -97,10 +97,10 @@ function SolveJacobi(mat, N, EVal, EVec) {
         matNM_copy(temp, Ps, N, N)
     }
 
-    print "end. the eigenval"
-    matNM_print(target, N, N)
-    print "the eigenvec"
-    matNM_print(Ps, N, N)
+#     print "end. the eigenval"
+#     matNM_print(target, N, N)
+#     print "the eigenvec"
+#     matNM_print(Ps, N, N)
 
     for(evi=0;evi<N;evi++) {
         EVal[evi] = target[evi,evi]
