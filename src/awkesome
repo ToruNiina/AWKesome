@@ -21,6 +21,15 @@
     pdb_reader_awk=${library_path}"PDBReader.awk"
 }
 
+gen_library_call()
+{
+    if [ "$1" -eq "0" ] ; then
+        echo " -f ""$2"
+    else
+        echo ""
+    fi
+}
+
 help()
 {
     echo "AWKesome version 1.0"
@@ -72,111 +81,104 @@ main()
     }
 
     : "main program" && {
-    cmd_str=" "
+    cmd_str=""
     for arg in $@ ; do
         case ${arg} in 
         "pdb")
             {
-            if [ "${pdb_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${pdb_reader_awk}
-                pdb_included=1
-            fi
+            tmp_str=`gen_library_call "${pdb_included}" "${pdb_reader_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            pdb_included=1
             }
         ;;
         "util")
             {
-            if [ "${utility_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${utility_awk}
-                utility_included=1
-            fi
+            tmp_str=`gen_library_call "${utility_included}" "${utility_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            utility_included=1
             }
         ;;
         "trigo")
             {
-            if [ "${trigo_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${trigonometric_awk}
-                trigo_included=1
-            fi
+            tmp_str=`gen_library_call "${trigo_included}" "${trigonometric_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            trigo_included=1
             }
         ;;
         "vector")
             {
-            if [ "${trigo_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${trigonometric_awk}
-                trigo_included=1
-            fi
-            if [ "${vector_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${vector_awk}
-                vector_included=1
-            fi
+            tmp_str=`gen_library_call "${trigo_included}" "${trigonometric_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            trigo_included=1
+
+            tmp_str=`gen_library_call "${vector_included}" "${vector_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            vector_included=1
             }
         ;;
         "matrix")
             {
-            if [ "${trigo_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${trigonometric_awk}
-                trigo_included=1
-            fi
-            if [ "${vector_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${vector_awk}
-                vector_included=1
-            fi
-            if [ "${matrix_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${matrix_awk}
-                matrix_included=1
-            fi
+            tmp_str=`gen_library_call "${trigo_included}" "${trigonometric_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            trigo_included=1
+
+            tmp_str=`gen_library_call "${vector_included}" "${vector_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            vector_included=1
+
+            tmp_str=`gen_library_call "${matrix_included}" "${matrix_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            matrix_included=1
             }
         ;;
         "jacobi")
             {
-            if [ "${utility_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${utility_awk}
-                utility_included=1
-            fi
-            if [ "${trigo_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${trigonometric_awk}
-                trigo_included=1
-            fi
-            if [ "${vector_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${vector_awk}
-                vector_included=1
-            fi
-            if [ "${matrix_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${matrix_awk}
-                matrix_included=1
-            fi
-            if [ "${jacobi_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${jacobi_awk}
-                jacobi_included=1
-            fi
+            tmp_str=`gen_library_call "${utility_included}" "${utility_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            utility_included=1
+ 
+            tmp_str=`gen_library_call "${trigo_included}" "${trigonometric_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            trigo_included=1
+
+            tmp_str=`gen_library_call "${vector_included}" "${vector_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            vector_included=1
+
+            tmp_str=`gen_library_call "${matrix_included}" "${matrix_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            matrix_included=1
+
+            tmp_str=`gen_library_call "${jacobi_included}" "${jacobi_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            jacobi_included=1
             }
         ;;
         "bestfit")
             {
-            if [ "${utility_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${utility_awk}
-                utility_included=1
-            fi
-            if [ "${trigo_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${trigonometric_awk}
-                trigo_included=1
-            fi
-            if [ "${vector_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${vector_awk}
-                vector_included=1
-            fi
-            if [ "${matrix_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${matrix_awk}
-                matrix_included=1
-            fi
-            if [ "${jacobi_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${jacobi_awk}
-                jacobi_included=1
-            fi
-            if [ "${bestfit_included}" -eq "0" ] ; then
-                cmd_str=${cmd_str}" -f "${bestfit_awk}
-                bestfit_included=1
-            fi
+            tmp_str=`gen_library_call "${utility_included}" "${utility_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            utility_included=1
+ 
+            tmp_str=`gen_library_call "${trigo_included}" "${trigonometric_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            trigo_included=1
+
+            tmp_str=`gen_library_call "${vector_included}" "${vector_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            vector_included=1
+
+            tmp_str=`gen_library_call "${matrix_included}" "${matrix_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            matrix_included=1
+
+            tmp_str=`gen_library_call "${jacobi_included}" "${jacobi_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            jacobi_included=1
+
+            tmp_str=`gen_library_call "${bestfit_included}" "${bestfit_awk}"`
+            cmd_str=${cmd_str}${tmp_str}
+            bestfit_included=1
             }
         ;;
         "-f")
@@ -213,7 +215,7 @@ main()
         ;;
         *) # default
             {
-                echo "unknown argument: "${arg}
+                echo "unknown argument: "${arg} 1>&2
                 exit 1;
             }
         ;;
