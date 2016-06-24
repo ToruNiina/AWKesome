@@ -10,6 +10,7 @@
 BEGIN{
     print  "the definition of contact is " threshold
     printf "making contact map of " model "-th model in " pdbfile "..."
+    print  ""
     PDBread(pdbfile, PDBDATA, PDBSIZE)
 
     for(i=1; i<PDBSIZE["PARTICLE"]; i++) {
