@@ -28,11 +28,11 @@ help()
     echo "this script is wrapper of AWKesome library."
     echo "this make it easier including files that you need."
     echo "use this way."
-    echo "    $ sh wrapper.sh [library name] -f your_awesome_script.awk"
+    echo "    $ awkesome [library name] -f your_awesome_script.awk"
     echo 
     echo "and you can omit file/value definition option -f and -v."
     echo "so you can run your script more simply like this."
-    echo "    $ sh wrapper.sh vector pdb your_awesome_script.awk value=1"
+    echo "    $ awkesome vector pdb your_awesome_script.awk value=1"
     echo 
     echo "this supports following library."
     echo "pdb     -- include PDBReader"
