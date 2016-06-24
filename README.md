@@ -3,6 +3,15 @@ AWKesome
 
 AWKesome is AWESOME awk function library to analyze the output of cafemol.
 
+This also provide awk wrapper that makes running awk script dramatically easyer.
+
+## Install
+
+add awkesome/src/ to your command path. you will be able to call
+awkesome::wrapper as
+
+    $ awkesome 
+
 ## Functions
 
 ### Trigonometric functions
@@ -80,11 +89,37 @@ See lib/BestFit.awk.
 
 ## Sample Scripts
 
+### Wrapper
+AWKesome provides awk wrapper that makes running your awk script dramatically
+easier. You can run your script like this.
+
+    $ awkesome your_awesome_script.awk foo="foo" bar="bar"
+
+You are now released from writing "-f" or "-v" options. And ofcourse, you can 
+call AWKesome library files more easier like this.
+
+    $ awkesome pdb matrix your_awesome_script.awk foo="foo" bar="bar"
+
+Yes, you can call PDBReader as "pdb". And you can call
+"-f path/to/lib/MatrixOperation.awk" as "matrix". wrapper also manages the
+dependency of library files, so you don't have to mind the dependency at all.
+You can successfully call the library if you do this.
+
+    $ awkesome pdb pdb pdb pdb pdb your_awesome_script.awk
+
+For more information, run
+
+    $ awkesome --help
+
 ### ContactMap
 ContactMap.awk outputs the contact map of a certain model in pdb file.
 
     $awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk \
          -f src/ContactMap.awk -v threshold=6.5 -v pdbfile="hoge.pdb" -v model=1
+
+or with AWKesome::wrapper,
+
+    $awkesome pdb vector src/ContactMap.awk threshold=6.5 pdbfile="hoge.pdb" model=1
 
 Here, _threshold_ is the definition of contact. If the distance of certain pair
 of particle is lesser than this value, the particles are considered as making
@@ -100,6 +135,11 @@ RMSDCalculator.awk calculates RMSD.
          -f lib/BestFit.awk src/RMSDCalculator.awk -v ref=reference.pdb \
          -v movie=some.movie
 
+or with AWKesome::wrapper,
+
+    $awkesome pdb bestfit src/RMSDCalculator.awk ref=reference.pdb movie=some.movie
+
+
 As reference structure, PDB file that contains CG-structure of the model is
 required.
 The reference PDB must not contain MODEL line.
@@ -111,6 +151,11 @@ To try RMSDCalculator, do following way on top directory of this project.
          -f lib/utils.awk -f MatrixOperation.awk -f lib/JacobiMethod.awk \
          -f lib/BestFit.awk src/RMSDCalculator.awk -v ref="./data/sh3_native.pdb" \
          -v movie="./data/sh3_native.movie" > sh3_rmsd.dat
+
+or with AWKesome::wrapper,
+
+    $./src/awkesome pdb bestfit ./src/RMSDCalculator.awk "./data/sh3_native.pdb" \
+         movie="./data/sh3_native.movie" > sh3_rmsd.dat
 
 And compare CafeMol's ts file.
 Because ts file rounds the values, you find the difference between them at
