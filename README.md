@@ -3,20 +3,17 @@ AWKesome
 
 AWKesome is AWESOME awk function library to analyze the output of cafemol.
 
-This also provide awk wrapper that makes running awk script dramatically easyer.
+This also provide awk wrapper that makes running awk script dramatically easier.
 
 ## Install
 
-add awkesome/src/ to your command path. you will be able to call
-awkesome::wrapper as
+add /path/to/awkesome/src/ to your command path. you will be able to run
+awkesome awk-wrapper as
 
     $ awkesome 
 
-If your environment is unnatural, modify the path to awkesome project in awkesome script.
 
-## Sample Scripts
-
-### awkesome (wrapper)
+## awkesome wrapper
 AWKesome provides awk wrapper that makes running your awk script dramatically
 easier. You can run your script like this.
 
@@ -38,6 +35,10 @@ For more information, run
 
     $ awkesome --help
 
+## sample scripts
+
+there are two sample scripts in awksome repository.
+
 ### ContactMap
 ContactMap.awk outputs the contact map of a certain model in pdb file.
 
@@ -48,11 +49,11 @@ or with AWKesome::wrapper,
 
     $awkesome pdb vector src/ContactMap.awk threshold=6.5 pdbfile="hoge.pdb" model=1
 
-Here, _threshold_ is the definition of contact. If the distance of certain pair
-of particle is lesser than this value, the particles are considered as making
-pair.
-_pdbfile_ is the name of PDB file you want to analyze.
-_model_ is an ID of the model you want to analize.
+Here, _threshold_ is the threshold of distance that define a contact exists.
+If the distance of certain pair of particle is lesser than this value,
+the particles are considered as making contact.
+_pdbfile_ is the name of PDB file you want to read.
+_model_ is an ID of the model you want to read.
 
 ### RMSDCalculator
 RMSDCalculator.awk calculates RMSD.
@@ -66,7 +67,6 @@ or with AWKesome::wrapper,
 
     $awkesome pdb bestfit src/RMSDCalculator.awk ref=reference.pdb movie=some.movie
 
-
 As reference structure, PDB file that contains CG-structure of the model is
 required.
 The reference PDB must not contain MODEL line.
@@ -79,19 +79,19 @@ To try RMSDCalculator, do following way on top directory of this project.
          -f lib/BestFit.awk src/RMSDCalculator.awk -v ref="./data/sh3_native.pdb" \
          -v movie="./data/sh3_native.movie" > sh3_rmsd.dat
 
-or with AWKesome::wrapper,
+or with AWKesome wrapper,
 
-    $./src/awkesome pdb bestfit ./src/RMSDCalculator.awk "./data/sh3_native.pdb" \
-         movie="./data/sh3_native.movie" > sh3_rmsd.dat
+    $awkesome pdb bestfit ./src/RMSDCalculator.awk "./data/sh3_native.pdb" \
+              movie="./data/sh3_native.movie" > sh3_rmsd.dat
 
-And compare CafeMol's ts file.
+If you want to test, compare the result and CafeMol's ts file.
+
 Because ts file rounds the values, you find the difference between them at
-a quick glance, but these are almost same if my scripts runs correctly on
-your environment.
+a quick glance. But don't worry.
 
 __NOTE__: This calculates only whole structure. Not each chain.
 
-## Features for Developper
+## Features of Library
 
 AWKesome provides these useful awk functions.
 
@@ -128,7 +128,9 @@ To read some pdb file in your awk script, call PDBread() this way.
 
     PDBread("filename", DATA, SIZE)
 
-here, _DATA_ and _SIZE_ is name of data array that you want to store the information.
+here, _DATA_ is name of data array that you want to store the information.
+_SIZE_ contains the size of each array. You can get the number of models and 
+particles in PDB file from SIZE in the way described below.
 
 You can access the information in pdb file like this way.
 
@@ -169,6 +171,8 @@ Calculate the best fit rotation and return the rotated structure.
 See lib/BestFit.awk.
 
 ## Testing
+
+AWKesome has some testing scripts. you can test the code.
 
     $ cd test/
     $ ./run_test
