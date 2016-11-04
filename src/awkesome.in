@@ -6,18 +6,18 @@
 #   read help.
 
 : "definition of include path" && {
-    project_path="../"
+    project_path="@AWKESOME_PROJECT_SOURCE_PATH@/"
     library_path=${project_path}"lib/"
     script_path=${project_path}"src/"
 }
 
 : "definition of each file include option" && {
-    trigonometric_awk=${library_path}"Trigonometric.awk"       # asin, acos, atan
+    trigonometric_awk=${library_path}"Trigonometric.awk" # asin, acos, atan
     vector_awk=${library_path}"VectorOperation.awk"
     matrix_awk=${library_path}"MatrixOperation.awk"
     jacobi_awk=${library_path}"JacobiMethod.awk"
     bestfit_awk=${library_path}"BestFit.awk"
-    utility_awk=${library_path}"utils.awk"                     # abs
+    utility_awk=${library_path}"utils.awk"               # abs
     pdb_reader_awk=${library_path}"PDBReader.awk"
 }
 
@@ -37,7 +37,7 @@ help()
     echo "this script is wrapper of AWKesome library."
     echo "this make it easier including files that you need."
     echo "use this way."
-    echo "    $ awkesome [library name] -f your_awesome_script.awk"
+    echo "    $ awkesome [library name] your_awesome_script.awk"
     echo 
     echo "and you can omit file/value definition option -f and -v."
     echo "so you can run your script more simply like this."
@@ -56,6 +56,8 @@ help()
 main()
 {
     if [ "$#" -lt "2" ]; then
+        echo "too few argument"
+        echo ""
         help ;
         exit 1;
     fi
