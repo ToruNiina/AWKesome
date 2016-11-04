@@ -7,19 +7,14 @@ This also provide wrapper of awk that makes running awk script dramatically easy
 
 ## Install
 
-At first, set the path using CMake.
+Set `path/to/lib` using CMake.
 
 ```sh
 $ cd build
 $ cmake ..
 ```
 
-After that, add /path/to/awkesome/ to your command pathes.
-Then you can run awkesome as
-
-```sh
-$ awkesome
-```
+This will generate the shell script that is named as awkesome
 
 ## Usage
 You can run your awk script in this way.
@@ -48,17 +43,16 @@ $ awkesome --help
 
 ## sample scripts
 
-there are two sample scripts in awksome repository.
+There are two sample scripts in `awksome` repository.
 
 ### ContactMap
-ContactMap.awk outputs the contact map of a certain model in pdb file.
+ContactMap.awk outputs a contact map of a certain model in pdb file.
 
 ```sh
 $awkesome pdb vector src/ContactMap.awk threshold=6.5 pdbfile="hoge.pdb" model=1
 ```
 
-Here, `threshold` is the threshold of distance that define
-whether a contact exists for a certain pair.
+Here, `threshold` is a distance that define whether a contact exists for a certain pair.
 If a distance between a certain pair of particles is lesser than this value,
 the particles are considered as making contact.
 `pdbfile` is a name of PDB file you want to read.
