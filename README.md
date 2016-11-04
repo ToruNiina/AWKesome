@@ -60,28 +60,14 @@ the particles are considered as making contact.
 
 ### RMSDCalculator
 
-RMSDCalculator.awk calculates RMSD between a reference structure and trajectory.
+RMSDCalculator.awk calculates RMSD between a reference structure and a trajectory.
 
 ```sh
 $awkesome pdb bestfit src/RMSDCalculator.awk ref=reference.pdb movie=some.movie
 ```
 
-As reference structure, PDB file that contains CG-structure of the model is required.
+As a reference structure, a PDB file that contains CG-structure of the model is required.
 And the reference PDB must not contain MODEL line.
-
-There are sample data that can be used for RMSDCalculation in `data` directory.
-
-To try RMSDCalculator, do following way on top directory of this project.
-
-```sh
-$awkesome pdb bestfit ./src/RMSDCalculator.awk "./data/sh3_native.pdb" \
-          movie="./data/sh3_native.movie" > sh3_rmsd.dat
-```
-
-If you want to test, compare a result to a CafeMol's `ts` file.
-
-Because `ts` file rounds the values and `RMSDCalculater` do not,
-you find the difference between them at a quick glance.
 
 __NOTE__: This calculation will be performed for whole structure. Not each chain.
 
@@ -90,13 +76,13 @@ __NOTE__: This calculation will be performed for whole structure. Not each chain
 AWKesome provides useful awk functions listed below.
 
 ### Trigonometric functions
-- tan(theta)
-- acos(theta)
-- asin(theta)
-- atan(theta)
+- `tan(theta)`
+- `acos(theta)`
+- `asin(theta)`
+- `atan(theta)`
 
 ### Utility functions
-- abs(x)
+- `abs(x)`
 
 ### Vector Operation
 AWKesome represents 3 dimensional vector as an array of numbers.
