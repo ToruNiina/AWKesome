@@ -1,39 +1,50 @@
 AWKesome
 ====
 
-AWKesome is AWESOME awk function library to analyze the output of cafemol.
+AWKesome is an AWESOME awk library to analyze output datas of the cafemol.
 
-This also provide awk wrapper that makes running awk script dramatically easier.
+This also provide wrapper of awk that makes running awk script dramatically easy.
 
 ## Install
 
-add /path/to/awkesome/src/ to your command path. you will be able to run
-awkesome awk-wrapper as
+At first, set the path using CMake.
 
-    $ awkesome 
+```sh
+$ cd build
+$ cmake ..
+```
 
+After that, add /path/to/awkesome/ to your command pathes.
+Then you can run awkesome as
 
-## awkesome wrapper
-AWKesome provides awk wrapper that makes running your awk script dramatically
-easier. You can run your script like this.
+```sh
+$ awkesome
+```
 
-    $ awkesome your_awesome_script.awk foo="foo" bar="bar"
+## Usage
+You can run your awk script in this way.
 
-You are now released from writing "-f" or "-v" options. And ofcourse, you can 
-call AWKesome library files more easier like this.
+```sh
+$ awkesome your_awesome_script.awk foo="foo" bar="bar"
+```
 
-    $ awkesome pdb matrix your_awesome_script.awk foo="foo" bar="bar"
+You are now free from writing `-f` or `-v` options.
+Additionally, you can load `AWKesome` library like this.
 
-Yes, you can call PDBReader as "pdb". And you can call
-"-f path/to/lib/MatrixOperation.awk" as "matrix". wrapper also manages the
-dependency of library files, so you don't have to mind the dependency at all.
-You can successfully call the library if you do this.
+```sh
+$ awkesome pdb matrix your_awesome_script.awk foo="foo" bar="bar"
+```
 
-    $ awkesome pdb pdb pdb pdb pdb your_awesome_script.awk
+Yes, you can call `PDBReader` as `pdb`. And you can call `MatrixOperation.awk`
+as `matrix`.
+It also manages the dependency of library files, so you don't have to mind
+the order of loading library files at all.
 
 For more information, run
 
-    $ awkesome --help
+```sh
+$ awkesome --help
+```
 
 ## sample scripts
 
@@ -42,137 +53,126 @@ there are two sample scripts in awksome repository.
 ### ContactMap
 ContactMap.awk outputs the contact map of a certain model in pdb file.
 
-    $awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk \
-         -f src/ContactMap.awk -v threshold=6.5 -v pdbfile="hoge.pdb" -v model=1
+```sh
+$awkesome pdb vector src/ContactMap.awk threshold=6.5 pdbfile="hoge.pdb" model=1
+```
 
-or with AWKesome::wrapper,
-
-    $awkesome pdb vector src/ContactMap.awk threshold=6.5 pdbfile="hoge.pdb" model=1
-
-Here, _threshold_ is the threshold of distance that define a contact exists.
-If the distance of certain pair of particle is lesser than this value,
+Here, `threshold` is the threshold of distance that define
+whether a contact exists for a certain pair.
+If a distance between a certain pair of particles is lesser than this value,
 the particles are considered as making contact.
-_pdbfile_ is the name of PDB file you want to read.
-_model_ is an ID of the model you want to read.
+`pdbfile` is a name of PDB file you want to read.
+`model` is an ID of the model you want to read.
 
 ### RMSDCalculator
-RMSDCalculator.awk calculates RMSD.
 
-    $awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk \
-         -f lib/utils.awk -f MatrixOperation.awk -f lib/JacobiMethod.awk \
-         -f lib/BestFit.awk src/RMSDCalculator.awk -v ref=reference.pdb \
-         -v movie=some.movie
+RMSDCalculator.awk calculates RMSD between a reference structure and trajectory.
 
-or with AWKesome::wrapper,
+```sh
+$awkesome pdb bestfit src/RMSDCalculator.awk ref=reference.pdb movie=some.movie
+```
 
-    $awkesome pdb bestfit src/RMSDCalculator.awk ref=reference.pdb movie=some.movie
+As reference structure, PDB file that contains CG-structure of the model is required.
+And the reference PDB must not contain MODEL line.
 
-As reference structure, PDB file that contains CG-structure of the model is
-required.
-The reference PDB must not contain MODEL line.
+There are sample data that can be used for RMSDCalculation in `data` directory.
 
-In data/ directory, sample data that can be used for RMSDCalculation exist.
 To try RMSDCalculator, do following way on top directory of this project.
 
-    $awk -f lib/PDBReader.awk -f lib/Trigonometric.awk -f lib/VectorOperation.awk \
-         -f lib/utils.awk -f MatrixOperation.awk -f lib/JacobiMethod.awk \
-         -f lib/BestFit.awk src/RMSDCalculator.awk -v ref="./data/sh3_native.pdb" \
-         -v movie="./data/sh3_native.movie" > sh3_rmsd.dat
+```sh
+$awkesome pdb bestfit ./src/RMSDCalculator.awk "./data/sh3_native.pdb" \
+          movie="./data/sh3_native.movie" > sh3_rmsd.dat
+```
 
-or with AWKesome wrapper,
+If you want to test, compare a result to a CafeMol's `ts` file.
 
-    $awkesome pdb bestfit ./src/RMSDCalculator.awk "./data/sh3_native.pdb" \
-              movie="./data/sh3_native.movie" > sh3_rmsd.dat
+Because `ts` file rounds the values and `RMSDCalculater` do not,
+you find the difference between them at a quick glance.
 
-If you want to test, compare the result and CafeMol's ts file.
+__NOTE__: This calculation will be performed for whole structure. Not each chain.
 
-Because ts file rounds the values, you find the difference between them at
-a quick glance. But don't worry.
+## For Developpers
 
-__NOTE__: This calculates only whole structure. Not each chain.
-
-## Features of Library
-
-AWKesome provides these useful awk functions.
+AWKesome provides useful awk functions listed below.
 
 ### Trigonometric functions
 - tan(theta)
 - acos(theta)
 - asin(theta)
 - atan(theta)
-using awk's function atan2(x, y)
 
 ### Utility functions
 - abs(x)
 
 ### Vector Operation
-AWKesome represents Vector3d as array of numbers. The values must be accessible
-with index 0,1,2.
+AWKesome represents 3 dimensional vector as an array of numbers.
+You can access a value in the vector with index 0,1,2.
 
-| name of function          | description                       |
-|:--------------------------|:----------------------------------|
-| vec\_len\_sq(vec)         | returns squared length            |
-| vec\_len(vec)             | returns length                    |
-| vec\_add(lhs, rhs, ret)   | ret = lhs + rhs                   |
-| vec\_sub(lhs, rhs, ret)   | ret = lhs - rhs                   |
-| vec\_mul(vec, scl, ret)   | ret = vec * scl                   |
-| vec\_div(vec, scl, ret)   | ret = vec / scl                   |
-| vec\_dot(lhs, rhs)        | returns dot product               |
-| vec\_cross(lhs, rhs, ret) | returns cross product             |
-| vec\_angle(lhs, rhs)      | returns angle between lhs and rhs |
-| vec\_print(vec)           | prints the vector                 |
+| name of function           | description                      |
+|:---------------------------|:---------------------------------|
+| `vec_len\_sq(vec)`         | return squared length            |
+| `vec_len(vec)`             | return length                    |
+| `vec_add(lhs, rhs, ret)`   | ret = lhs + rhs                  |
+| `vec_sub(lhs, rhs, ret)`   | ret = lhs - rhs                  |
+| `vec_mul(vec, scl, ret)`   | ret = vector * scalar            |
+| `vec_div(vec, scl, ret)`   | ret = vector / scalar            |
+| `vec_dot(lhs, rhs)`        | return dot product               |
+| `vec_cross(lhs, rhs, ret)` | return cross product             |
+| `vec_angle(lhs, rhs)`      | return angle between lhs and rhs |
+| `vec_print(vec)`           | prints the vector                |
 
 ### PDB Reader
-AWKesome store the pdb data as pseudo-multidimentional array.
-To read some pdb file in your awk script, call PDBread() this way.
 
-    PDBread("filename", DATA, SIZE)
+AWKesome stores a pdb data as a multidimentional array.
+To read a pdb file in your awk script, call PDBread() like this.
 
-here, _DATA_ is name of data array that you want to store the information.
-_SIZE_ contains the size of each array. You can get the number of models and 
-particles in PDB file from SIZE in the way described below.
+```awk
+PDBread("filename", DATA, SIZE)
+```
 
-You can access the information in pdb file like this way.
+Here, `DATA` is a name of data that you want to store the structural information.
+`SIZE` will be filled by the size of each array.
+You can get the number of models and particles in a PDB file from `SIZE`.
 
-| key                 | value        | example |
-|:--------------------|:-------------|:--------|
-| DATA[M,N,"RESIDUE"] | residue name | "THR"   |
-| DATA[M,N,"ATOM"]    | atom name    | "CA"    |
-| DATA[M,N,"CHAIN"]   | chain name   | "A"     |
-| DATA[M,N,"RESID"]   | residue id   | 12      |
-| DATA[M,N,"X"]       | x coordinate | 1.0000  |
-| DATA[M,N,"Y"]       | y coordinate | 1.0000  |
-| DATA[M,N,"Z"]       | z coordinate | 1.0000  |
+| key                   | value        | example |
+|:----------------------|:-------------|:--------|
+| `DATA[M,N,"RESIDUE"]` | residue name | "THR"   |
+| `DATA[M,N,"ATOM"]`    | atom name    | "CA"    |
+| `DATA[M,N,"CHAIN"]`   | chain name   | "A"     |
+| `DATA[M,N,"RESID"]`   | residue id   | 12      |
+| `DATA[M,N,"X"]`       | x coordinate | 1.0000  |
+| `DATA[M,N,"Y"]`       | y coordinate | 1.0000  |
+| `DATA[M,N,"Z"]`       | z coordinate | 1.0000  |
 
-here, _M_ means model index and _N_ means particle index.
+here, `M` means model index and `N` means particle index.
 
-Of course, you can get the number of models in pdb file and
-number of particles in one model with SIZE array.
+| key                | value                              |
+|:-------------------|:-----------------------------------|
+| `SIZE["MODEL"]`    | a number of models in pdb file     |
+| `SIZE["PARTICLE"]` | a number of particles in one model |
 
-| key              | value                            |
-|:-----------------|:---------------------------------|
-| SIZE["MODEL"]    | number of models in pdb file     |
-| SIZE["PARTICLE"] | number of particles in one model |
-
-__NOTE__: If you read a pdbfile that have no MODEL line, PDBReader stores the
-model in DATA[0,N,"foo"] and SIZE["MODEL"] become zero. Please be careful.
+__NOTE__: If you read a pdb file that have no MODEL line, `PDBReader` stores the
+structural data at `DATA[0,N,"foo"]` and `SIZE["MODEL"]` become zero.
 
 ### Matrix Operation
-AWKesome represents Matrix as pseudo-multidimentional array of numbers.
-About the same kind of functions as vector operation are supported.
-See lib/MatrixOperation.awk.
+AWKesome represents Matrix as a multidimentional array of numbers.
+The same kind of functions as vector operation are supported.
+
+See `lib/MatrixOperation.awk`.
 
 ### Jacobi Method
-Calculate the eigenvectors and eigenvalues of symmetric matrix.
-See lib/JacobiMethod.awk.
+Calculate eigenvectors and eigenvalues of a symmetric matrix.
+
+See `lib/JacobiMethod.awk`.
 
 ### BestFit
-Calculate the best fit rotation and return the rotated structure.
-See lib/BestFit.awk.
+Calculate the best fit rotation matrix and return rotated structure.
+
+See `lib/BestFit.awk`.
 
 ## Testing
 
-AWKesome has some testing scripts. you can test the code.
+`AWKesome` has some testing scripts. You can test the code.
 
     $ cd test/
     $ ./run_test
